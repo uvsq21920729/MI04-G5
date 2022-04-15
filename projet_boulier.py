@@ -13,7 +13,6 @@ def callback(event):
             n = a
             break
     if n >= 0 and ovals[a//5][a%5][1] < 1:
-        print(ovals[a//5][a%5][0]-ovals[0][0][0],"iuytgfg",n)
         ovals[a//5][a%5][1]+=1
             
             
