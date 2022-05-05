@@ -1,4 +1,3 @@
-
 from tkinter import *
 
 root = Tk()
@@ -12,12 +11,36 @@ def callback(event):
         if canvas.itemconfig(ovals[0][0][0]+a)["tags"][-1] == "current":
             n = a
             break
-    if n >= 0 and ovals[a//5][a%5][1] < 1:
-        ovals[a//5][a%5][1]+=1
-            
-            
+    if n>0:
+        mouvement(n)
+def mouvement(n):
+    print(ovals[n//5][n%5][1], n)
+    if ovals[n//5][n%5][1] == 0:
+        if n%5 == 0:
+            canvas.move(ovals[n//5][n%5][0],0,15)
+            ovals[n//5][n%5][1] = 1
+        else:
+            for N in range(n//5*5,n//5*5+n%5):
+                print(n,N+1)
+                if ovals[(N+1)//5][(N+1)%5][1] == 0:
+                    canvas.move(ovals[(N+1)//5][(N+1)%5][0],0,-15)
+                    ovals[(N+1)//5][(N+1)%5][1]+=1
+    else:
+        if n%5 == 0:
+            canvas.move(ovals[n//5][n%5][0],0,-15)
+            ovals[n//5][n%5][1] = 0
+        else:
+            for N in range(n//5*5+n%5,(n//5+1)*5):
+                print(n,N)
+                if ovals[N//5][N%5][1] == 1:
+                    canvas.move(ovals[N//5][N%5][0],0,15)
+                    ovals[N//5][N%5][1] = 0
+def move():
+    pass
+        
 
 canvas = Canvas(root, width=1400, height=300)
+canvas.grid()
 canvas.create_rectangle(0, 0, 1400, 300, fill = "#3e280f")
 canvas.create_rectangle(10, 10, 1390, 290, fill = "#bbbbbb", outline = "#bbbbbb")
 canvas.create_rectangle(10, 72, 1390, 86, fill = "#3e280f")
