@@ -1,14 +1,15 @@
 ##################################################
 # groupe MI TD04                                 #
+# Bonnardot  Arthure                             #
 # Guo  Xu Xin                                    #
 # Le Brun  Maxence                               #
-#
 # https://github.com/uvsq21920729/MI04-G5        #
 ##################################################
 from tkinter import *
 
 tickspeed = 40
-askedRange = 13
+askedRange = 23
+encounter = 1
 
 root = Tk()
 
@@ -39,15 +40,24 @@ def speed():
         tickspeed = 80
     tickspeed/=2
 def space():
-    global askedRange
+    global askedRange,ovals,encounter
     root_bis = Tk()
     root_bis.title('Choisissez vos colonnes')
     root_bis.geometry('200x200')
     
     def setSpace():
-        global askedRange
+        global askedRange,ovals,encounter
         askedRange = int(name_Tf.get())
-        reset()
+        canvas.delete('all')
+        canvas.create_rectangle(0, 0, 1400, 400, fill = "#3e280f")
+        canvas.create_rectangle(10, 10, 1390, 390, fill = "#bbbbbb", outline = "#bbbbbb")
+        canvas.create_rectangle(10, 120, 1390, 144, fill = "#3e280f")
+        encounter += 2
+        ovals = []
+        for a in range(askedRange):
+            ovals.append([[canvas.create_oval(1380/askedRange*a+15+int((23-askedRange)*a*0.3), 10, 1380/askedRange*a+15+44+int((23-askedRange)*a*0.3), 54, fill = "#b36d1e", state = "normal", activefill = "black"),0,0,0]])
+            for b in range(4):
+                ovals[a].append([canvas.create_oval(1380/askedRange*a+15+int((23-askedRange)*a*0.3), 210+b*44, 1380/askedRange*a+15+44+int((23-askedRange)*a*0.3), 210+b*44+44, fill = "#b36d1e", state = "normal", activefill = "black"),0,0])
         root_bis.destroy()
     Label(root_bis, text="Nombres de colonnes").pack()
     name_Tf = Entry(root_bis)
@@ -82,7 +92,7 @@ def move():
                 elif ovals[a][b][1] == 2:
                     ovals[a][b][1] = 0
                 ovals[a][b][2]=0
-            if (ovals[a][b][0]+1)%5 == 0:
+            if (ovals[a][b][0]+encounter)%5 == 0:
                 if ovals[a][b][1] == 1 and ovals[a][b][2] < 65:
                     canvas.move(ovals[a][b][0],0,1)
                     ovals[a][b][2] += 1
