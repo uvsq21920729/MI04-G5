@@ -229,5 +229,5 @@ for a in range(askedRange):
 canvas.bind("<Key>", key)
 canvas.bind("<Button-1>", callback)
 canvas.pack()
-root.mainloop()
 move()
+root.mainloop()
